@@ -10,3 +10,7 @@ NW.js app that uses Node to check for upgrades and upgrade a git repository.
       ```
       
 - Enter a path to a git project you want to check/upgrade in the config.json file.
+
+## Issues
+- Does not yet inform the user when it is done updating.
+
