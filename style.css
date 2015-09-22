@@ -1,0 +1,22 @@
+.button-group {
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+button {
+    border-style: none;
+    background-color:#419aba;
+    border-radius:3px;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family: Verdana, sans-serif;
+    font-size:15px;
+    padding:6px 15px;
+    outline:none
+}
+
+button:disabled {
+    cursor:default;
+    background-color: rgba(65, 154, 186, 0.3);
+}

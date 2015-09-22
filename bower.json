@@ -1,0 +1,18 @@
+{
+  "name": "update-with-node",
+  "version": "0.1.0",
+  "authors": [
+    "atorres <torres.lyssa@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.6"
+  }
+}

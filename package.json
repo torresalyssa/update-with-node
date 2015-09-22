@@ -1,0 +1,11 @@
+{
+  "main": "index.html",
+  "name": "Update repo",
+  "version": "0.0.1",
+  "description": "",
+  "nodejs": true,
+  "window": {
+    "title": "",
+    "always-on-top": true
+  }
+}

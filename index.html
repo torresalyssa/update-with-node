@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html ng-app="updateApp" ng-controller="rootController">
+<head lang="en">
+    <meta charset="UTF-8">
+    <script>
+        var exec = require('child_process').exec;
+    </script>
+
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="update.module.js"></script>
+
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="button-group">
+        <button type="button" ng-click="checkUpToDate()">Check for Upgrades</button>
+        <span>&nbsp;&nbsp;&nbsp;{{checkMsg}}</span><br><br>
+        <button type="button" ng-click="updateRepo()" ng-disabled="upToDate">Install Upgrades</button>
+        <span>&nbsp;&nbsp;&nbsp;{{updateMsg}}</span>
+    </div>
+</body>
+</html>
