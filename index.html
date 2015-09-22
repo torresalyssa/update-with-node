@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <script>
         var exec = require('child_process').exec;
+        var config = require('./config.json');
     </script>
 
     <script src="bower_components/angular/angular.min.js"></script>
@@ -14,10 +15,7 @@
 
 <body>
     <div class="button-group">
-        <p>Path to project:&nbsp;&nbsp;
-            <input ng-model="project.path">
-        </p>
-        <button type="button" ng-click="checkUpToDate()" ng-disabled="!project.path">Check for Upgrades</button>
+        <button type="button" ng-click="checkUpToDate()" ng-disabled="!projectPath">Check for Upgrades</button>
         <span>&nbsp;&nbsp;&nbsp;{{checkMsg}}</span><br><br>
         <button type="button" ng-click="updateRepo()" ng-disabled="upToDate">Install Upgrades</button>
         <span>&nbsp;&nbsp;&nbsp;{{updateMsg}}</span>

@@ -9,9 +9,8 @@ app.controller("rootController", function ($scope, $log, $timeout) {
 
     $scope.numUpdates = 0;
 
-    $scope.project = {
-        path: undefined
-    };
+    $scope.projectPath = config['project-path'];
+    console.log($scope.projectPath);
 
     $scope.$on('NOT_UP_TO_DATE', function () {
         $scope.upToDate = false;
@@ -29,6 +28,12 @@ app.controller("rootController", function ($scope, $log, $timeout) {
         $scope.checked = true;
     });
 
+    $scope.$on("UPGRADING", function() {
+        $timeout(function() {
+            $scope.checkMsg = "";
+            $scope.updateMsg = "Upgrading...";
+        });
+    });
 
     $scope.checkUpToDate = function () {
         var local, remote;
@@ -37,15 +42,17 @@ app.controller("rootController", function ($scope, $log, $timeout) {
             $scope.checkMsg = 'Checking for upgrades...'
         });
 
-        exec('cd ' + $scope.project.path + " && git fetch", function (error, stdout, stderr) {
+        exec('cd ' + $scope.projectPath + " && git fetch", function (error, stdout, stderr) {
 
             if (error != null) {
-                $scope.checkedMsg = 'There was an error checking for upgrades.';
-                $log.error('ERROR in exec (git fetch): ' + error);
+                $timeout(function() {
+                    $scope.checkMsg = 'There was an error checking for upgrades.';
+                    $log.error('ERROR in exec (git fetch): ' + error);
+                });
             }
 
             else {
-                exec('cd ' + $scope.project.path + ' && git rev-parse @', function (error, stdout, stderr) {
+                exec('cd ' + $scope.projectPath + ' && git rev-parse @', function (error, stdout, stderr) {
 
                     if (error != null) {
                         $log.error('ERROR in exec (git rev-parse @): ' + error);
@@ -53,7 +60,7 @@ app.controller("rootController", function ($scope, $log, $timeout) {
                     else {
                         local = stdout;
 
-                        exec('cd ' + $scope.project.path + ' && git rev-parse @', function (error, stdout, stderr) {
+                        exec('cd ' + $scope.projectPath + ' && git rev-parse @', function (error, stdout, stderr) {
 
                             if (error != null) {
                                 $log.error('ERROR in exec (git rev-parse @{u}): ' + error);
@@ -84,9 +91,9 @@ app.controller("rootController", function ($scope, $log, $timeout) {
         var npms = [];
         var i;
 
-        $scope.updateMsg = "Upgrading...";
+        $scope.$broadcast("UPGRADING");
 
-        exec('cd ' + $scope.project.path + ' && git pull origin master', function (error) {
+        exec('cd ' + $scope.projectPath + ' && git pull origin master', function (error) {
 
             if (error != null) {
                 $log.error('ERROR in exec (git pull): ' + error);
@@ -94,7 +101,7 @@ app.controller("rootController", function ($scope, $log, $timeout) {
             else {
 
                 // Do bower update(s)
-                exec("find " + $scope.project.path + " -name 'bower.json' | grep -v node_modules | grep -v bower_components", function (error, stdout, stderr) {
+                exec("find " + $scope.projectPath + " -name 'bower.json' | grep -v node_modules | grep -v bower_components", function (error, stdout, stderr) {
 
                     if (error != null) {
                         $log.error('ERROR in exec (find bower.json): ' + error);
@@ -120,7 +127,7 @@ app.controller("rootController", function ($scope, $log, $timeout) {
                 });
 
                 // Do npm update(s)
-                exec("find " + $scope.project.path + " -name 'package.json' | grep -v node_modules | grep -v bower_components", function (error, stdout, stderr) {
+                exec("find " + $scope.projectPath + " -name 'package.json' | grep -v node_modules | grep -v bower_components", function (error, stdout, stderr) {
 
                     if (error != null) {
                         $log.error('ERROR in exec (find package.json): ' + error);
