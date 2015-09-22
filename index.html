@@ -14,7 +14,10 @@
 
 <body>
     <div class="button-group">
-        <button type="button" ng-click="checkUpToDate()">Check for Upgrades</button>
+        <p>Path to project:&nbsp;&nbsp;
+            <input ng-model="project.path">
+        </p>
+        <button type="button" ng-click="checkUpToDate()" ng-disabled="!project.path">Check for Upgrades</button>
         <span>&nbsp;&nbsp;&nbsp;{{checkMsg}}</span><br><br>
         <button type="button" ng-click="updateRepo()" ng-disabled="upToDate">Install Upgrades</button>
         <span>&nbsp;&nbsp;&nbsp;{{updateMsg}}</span>
