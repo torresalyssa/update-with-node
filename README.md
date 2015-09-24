@@ -13,7 +13,5 @@ NW.js app that uses Node to check for updates and update a git repository.
       
 
 ## Issues
-- Does not look particularly good.
-
 - Might want it to handle errors with bower/npm update differently.
 

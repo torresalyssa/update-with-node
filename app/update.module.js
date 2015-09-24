@@ -14,7 +14,38 @@ app.controller("rootController", function ($scope, $log, $timeout) {
     $scope.numUpdates = 0;
 
     $scope.projectPath = config['project-path'];
-    $log.info('Running for project at ' + $scope.projectPath);
+    $scope.project = {
+        path: $scope.projectPath
+    };
+
+    $scope.applyPath = function() {
+        $scope.projectPath = $scope.project.path;
+        $scope.upToDate = true;
+        $scope.checked = false;
+        $scope.checking = false;
+        $scope.updating = false;
+        $scope.checkMsg = "";
+        $scope.updateMsg = "";
+        $scope.bowerError = "";
+        $scope.npmError = "";
+        $scope.numUpdates = 0;
+    };
+
+    $scope.resetPath = function() {
+        $scope.projectPath = config['project-path'];
+        $scope.project = {
+            path: $scope.projectPath
+        };
+        $scope.upToDate = true;
+        $scope.checked = false;
+        $scope.checking = false;
+        $scope.updating = false;
+        $scope.checkMsg = "";
+        $scope.updateMsg = "";
+        $scope.bowerError = "";
+        $scope.npmError = "";
+        $scope.numUpdates = 0;
+    };
 
     $scope.$on('NOT_UP_TO_DATE', function () {
         $timeout(function() {
@@ -28,7 +59,7 @@ app.controller("rootController", function ($scope, $log, $timeout) {
         $scope.checking = false;
         $scope.upToDate = true;
         $timeout(function () {
-            $scope.checkMsg = 'Everything is up-to-date!'
+            $scope.checkMsg = '✓ Everything is up-to-date!'
         });
         $scope.checked = true;
     });
@@ -45,24 +76,34 @@ app.controller("rootController", function ($scope, $log, $timeout) {
         if ($scope.numUpdates == 0) {
             $timeout(function() {
                 $scope.updating = false;
-                $scope.updateMsg = "All done!"
+                $scope.updateMsg = "✓ All done!"
+                $scope.upToDate = true;
             });
         }
     });
 
     $scope.checkUpToDate = function () {
-        $scope.checking = true;
+
         var local, remote;
 
-        $timeout(function () {
-        });
+        $scope.upToDate = true;
+        $scope.checked = false;
+        $scope.updating = false;
+        $scope.checkMsg = "";
+        $scope.updateMsg = "";
+        $scope.bowerError = "";
+        $scope.npmError = "";
+        $scope.numUpdates = 0;
+        $scope.checking = true;
+        $log.info("Checking " + $scope.projectPath);
+
 
         exec('cd ' + $scope.projectPath + " && git fetch", function (error, stdout, stderr) {
 
             if (error != null) {
                 $timeout(function() {
                     $scope.checking = false;
-                    $scope.checkMsg = 'There was an error checking for updates. Make sure your project has a git repository.';
+                    $scope.checkMsg = '✗ Error checking for updates. Make sure your project has a git repository.';
                     $log.error('ERROR in exec (git fetch): ' + error);
                 });
             }
@@ -107,6 +148,8 @@ app.controller("rootController", function ($scope, $log, $timeout) {
         var npms = [];
         var i;
 
+        $scope.numUpdates = 0;
+        $log.info("Updating " + $scope.projectPath);
         $scope.$broadcast("UPDATING");
 
         exec('cd ' + $scope.projectPath + ' && git pull origin master', function (error) {

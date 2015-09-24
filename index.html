@@ -16,11 +16,15 @@
 
 <body>
     <div class="button-group">
-        <p><b>Project:</b>&nbsp;{{projectPath}}</p><br>
-        <button type="button" ng-click="checkUpToDate()" ng-disabled="!projectPath || checking || updating">Check for Updates</button>
+        <p>Project path&nbsp;
+            <input ng-model="project.path" value="{{project.path}}">
+            <button ng-click="applyPath()" ng-disabled="checking || updating">Apply</button>
+            <button ng-click="resetPath()" ng-disabled="checking || updating">Reset</button>
+        </p><br>
+        <button class="main-btn" type="button" ng-click="checkUpToDate()" ng-disabled="!projectPath || checking || updating || !upToDate">Check for Updates</button>
         &nbsp;&nbsp;<img src="assets/img/spinner.gif" ng-show="checking">
         <span class="info-text">&nbsp;&nbsp;&nbsp;{{checkMsg}}</span><br><br>
-        <button type="button" ng-click="updateRepo()" ng-disabled="upToDate || updating">Install Updates</button>
+        <button class="main-btn" type="button" ng-click="updateRepo()" ng-disabled="upToDate || updating">Install Updates</button>
         &nbsp;&nbsp;<img src="assets/img/spinner.gif" ng-show="updating">
         <span class="info-text">&nbsp;&nbsp;&nbsp;{{updateMsg}}</span>
         <br><br><br>

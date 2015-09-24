@@ -6,6 +6,8 @@
   "nodejs": true,
   "window": {
     "title": "",
-    "always-on-top": true
+    "always-on-top": true,
+    "width": 900,
+    "height": 370
   }
 }
