@@ -1,3 +1,7 @@
+body {
+    font-family: Verdana, sans-serif;
+}
+
 input {
     width: 300px;
     padding: 5px;
@@ -31,4 +35,13 @@ button {
 button:disabled {
     cursor:default;
     background-color: rgba(65, 154, 186, 0.3);
+}
+
+.error-text {
+    font-family: 'Lucinda Console', monospace;
+    color: red;
+}
+
+.info-text {
+    font-size: 85%;
 }
