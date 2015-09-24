@@ -18,7 +18,6 @@
     <div class="button-group">
         <p>Project path&nbsp;
             <input ng-model="project.path" value="{{project.path}}">
-            <button ng-click="applyPath()" ng-disabled="checking || updating">Apply</button>
             <button ng-click="resetPath()" ng-disabled="checking || updating">Reset</button>
         </p><br>
         <button class="main-btn" type="button" ng-click="checkUpToDate()" ng-disabled="!projectPath || checking || updating || !upToDate">Check for Updates</button>

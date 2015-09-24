@@ -11,26 +11,11 @@ app.controller("rootController", function ($scope, $log, $timeout) {
     $scope.bowerError = "";
     $scope.npmError = "";
 
-    //test
-
     $scope.numUpdates = 0;
 
     $scope.projectPath = config['project-path'];
     $scope.project = {
         path: $scope.projectPath
-    };
-
-    $scope.applyPath = function() {
-        $scope.projectPath = $scope.project.path;
-        $scope.upToDate = true;
-        $scope.checked = false;
-        $scope.checking = false;
-        $scope.updating = false;
-        $scope.checkMsg = "";
-        $scope.updateMsg = "";
-        $scope.bowerError = "";
-        $scope.npmError = "";
-        $scope.numUpdates = 0;
     };
 
     $scope.resetPath = function() {
@@ -78,7 +63,7 @@ app.controller("rootController", function ($scope, $log, $timeout) {
         if ($scope.numUpdates == 0) {
             $timeout(function() {
                 $scope.updating = false;
-                $scope.updateMsg = "✓ All done!"
+                $scope.updateMsg = "✓ All done!";
                 $scope.upToDate = true;
             });
         }
@@ -87,6 +72,8 @@ app.controller("rootController", function ($scope, $log, $timeout) {
     $scope.checkUpToDate = function () {
 
         var local, remote;
+
+        $scope.projectPath = $scope.project.path;
 
         $scope.upToDate = true;
         $scope.checked = false;
