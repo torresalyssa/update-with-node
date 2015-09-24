@@ -161,7 +161,7 @@ app.controller("rootController", function ($scope, $log, $timeout) {
                 }
 
                 bowers = bowerStdout.toString().split("\n");
-                console.log(bowers);
+                //console.log(bowers);
 
                 for (i = 0; i < bowers.length; i++) {
                     bowers[i] = bowers[i].replace("bower.json", "");
@@ -183,7 +183,7 @@ app.controller("rootController", function ($scope, $log, $timeout) {
                 }
 
                 npms = npmStdout.toString().split("\n");
-                console.log(npms);
+                //console.log(npms);
 
                 for (i = 0; i < npms.length; i++) {
                     npms[i] = npms[i].replace("package.json", "");
@@ -198,7 +198,7 @@ app.controller("rootController", function ($scope, $log, $timeout) {
                         exec("cd " + bowers[i] + " && bower update", function (error, stdout) {
                             if (error != null) {
                                 $log.error("ERROR in exec (bower update): " + error);
-                                $timeout(function() {$scope.bowerError = "Error in bower update."});
+                                $timeout(function() {$scope.bowerError = "Error in bower update. Check console for more information."});
                             }
                             $scope.$broadcast('UPDATED');
 
@@ -213,7 +213,7 @@ app.controller("rootController", function ($scope, $log, $timeout) {
                         exec("cd " + npms[i] + " && npm update", function (error, stdout) {
                             if (error != null) {
                                 $log.error("ERROR in exec (npm update): " + error);
-                                $timeout(function() {$scope.npmError = "Error in npm update."});
+                                $timeout(function() {$scope.npmError = "Error in npm update. Check console for more information."});
                             }
                             $scope.$broadcast('UPDATED');
 
