@@ -11,6 +11,8 @@ app.controller("rootController", function ($scope, $log, $timeout) {
     $scope.bowerError = "";
     $scope.npmError = "";
 
+    //test
+
     $scope.numUpdates = 0;
 
     $scope.projectPath = config['project-path'];
